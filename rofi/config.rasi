@@ -1,0 +1,146 @@
+configuration {
+    modi: "drun,run,ssh";
+    show-icons: true;
+    icon-theme: "Papirus";
+    font: "JetBrainsMono Nerd Font Bold 12";
+    display-drun: "APPS";
+    display-run: "CMD";
+    display-ssh: "NET";
+    sidebar-mode: true;
+    drun-display-format: "{name}";
+}
+
+* {
+    bg-col: #000000;
+    fg-col: #E0E0E0;
+    red-accent: #D03E35;
+    grey-dim: #444444;
+    
+    background-color: transparent;
+    text-color: @fg-col;
+}
+
+window {
+    transparency: "real";
+    background-color: rgba(10, 10, 10, 0.92);
+    border: 2px;
+    padding: 0px;
+    border-radius: 0px;
+    border-color: @red-accent;
+    width: 35%;
+}
+
+mainbox {
+    background-color: transparent;
+    padding: 10px;
+    children: [ inputbar, listview, mode-switcher ];
+}
+
+inputbar {
+    children: [ prompt, entry ];
+    background-color: transparent;
+    border-radius: 0px;
+    padding: 10px;
+    margin: 0 0 10px 0;
+    border: 0 0 2px 0;
+    border-color: @red-accent;
+}
+
+prompt {
+    background-color: @red-accent;
+    text-color: #000000;
+    enabled: true;
+    padding: 5px 10px 5px 10px;
+    margin: 0 10px 0 0;
+    border-radius: 0px;
+}
+
+entry {
+    background-color: transparent;
+    text-color: @red-accent;
+    placeholder: "...";
+    placeholder-color: @grey-dim;
+    padding: 5px 0;
+}
+
+listview {
+    background-color: transparent;
+    columns: 1;
+    lines: 8;
+    spacing: 4px;
+    cycle: true;
+    dynamic: true;
+    scrollbar: false;
+    layout: vertical;
+    margin: 5px 0 5px 0;
+}
+
+element {
+    background-color: transparent;
+    text-color: @grey-dim;
+    orientation: horizontal;
+    border-radius: 0px;
+    padding: 8px 10px;
+    spacing: 10px;
+    border: 0px 0px 0px 0px; 
+}
+
+element-icon {
+    background-color: transparent;
+    text-color: inherit;
+    size: 1.0em;
+    cursor: inherit;
+}
+
+element-text {
+    background-color: transparent;
+    text-color: inherit;
+    highlight: bold;
+    cursor: inherit;
+    vertical-align: 0.5;
+}
+
+element normal.normal {
+    background-color: transparent;
+    text-color: @grey-dim;
+}
+
+element alternate.normal {
+    background-color: transparent;
+    text-color: @grey-dim;
+}
+
+element selected.normal {
+    background-color: transparent; 
+    text-color: @fg-col;
+    border: 0px 0px 0px 5px;
+    border-color: @red-accent;
+}
+
+element selected.normal element-text {
+    text-color: @fg-col;
+}
+
+element selected.normal element-icon {
+    text-color: @red-accent;
+}
+
+mode-switcher {
+    spacing: 5px;
+    margin: 10px 0 0 0;
+    background-color: transparent;
+}
+
+button {
+    padding: 8px 10px;
+    background-color: #1a1a1a;
+    text-color: @grey-dim;
+    vertical-align: 0.5; 
+    horizontal-align: 0.5;
+    border-radius: 0px;
+}
+
+button selected {
+    background-color: @red-accent;
+    text-color: #000000;
+}

@@ -1,0 +1,162 @@
+{
+    "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
+    "logo": {
+        "padding": {
+            "top": 2
+        },
+        "color": {
+            "1": "red",
+            "2": "90"
+        }
+    },
+    "display": {
+        "separator": "  ",
+        "color": {
+            "keys": "red",
+            "title": "red",
+            "output": "white",
+            "separator": "90"
+        },
+        "constants": [
+            "──────────────────────────────"
+        ]
+    },
+    "modules": [
+        {
+            "type": "custom",
+            "format": "┌{$1}{$1}┐",
+            "outputColor": "90"
+        },
+        {
+            "type": "title",
+            "keyWidth": 10,
+            "format": "{user-name}@{host-name}",
+            "color": {
+                "host": "90",
+                "user": "red"
+            }
+        },
+        {
+            "type": "custom",
+            "format": "└{$1}{$1}┘",
+            "outputColor": "90"
+        },
+        
+        {
+            "type": "custom",
+            "format": "┌{$1}{$1}┐",
+            "outputColor": "90"
+        },
+        {
+            "type": "os",
+            "key": "{icon} OS",
+            "keyColor": "red"
+        },
+        {
+            "type": "kernel",
+            "key": "├",
+            "keyColor": "red"
+        },
+        {
+            "type": "packages",
+            "key": "├󰏖",
+            "keyColor": "red"
+        },
+        {
+            "type": "shell",
+            "key": "└",
+            "keyColor": "red"
+        },
+        {
+            "type": "wm",
+            "key": " DE/WM",
+            "keyColor": "red"
+        },
+        {
+            "type": "lm",
+            "key": "├󰧨",
+            "keyColor": "red"
+        },
+        {
+            "type": "wmtheme",
+            "key": "├󰉼",
+            "keyColor": "red"
+        },
+        {
+            "type": "icons",
+            "key": "├󰀻",
+            "keyColor": "red"
+        },
+        {
+            "type": "terminal",
+            "key": "├",
+            "keyColor": "red"
+        },
+        {
+            "type": "wallpaper",
+            "key": "└󰸉",
+            "keyColor": "red"
+        },
+        {
+            "type": "host",
+            "key": "󰌢 PC",
+            "keyColor": "red"
+        },
+        {
+            "type": "cpu",
+            "key": "├󰻠",
+            "keyColor": "red"
+        },
+        {
+            "type": "gpu",
+            "key": "├󰍛",
+            "keyColor": "red"
+        },
+        {
+            "type": "disk",
+            "key": "├",
+            "keyColor": "red"
+        },
+        {
+            "type": "memory",
+            "key": "├󰑭",
+            "keyColor": "red"
+        },
+        {
+            "type": "swap",
+            "key": "├󰓡",
+            "keyColor": "red"
+        },
+        {
+            "type": "uptime",
+            "key": "├󰅐",
+            "keyColor": "red"
+        },
+        {
+            "type": "display",
+            "key": "└󰍹",
+            "keyColor": "red"
+        },
+        {
+            "type": "sound",
+            "key": " SND",
+            "keyColor": "red"
+        },
+        {
+            "type": "player",
+            "key": "├󰥠",
+            "keyColor": "red"
+        },
+        {
+            "type": "media",
+            "key": "└󰝚",
+            "keyColor": "red"
+        },
+        {
+            "type": "custom",
+            "format": "└{$1}{$1}┘",
+            "outputColor": "90"
+        },
+        "break"
+    ]
+}
