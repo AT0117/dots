@@ -1,4 +1,7 @@
-# <h3>Font Used - JetBrainsMono Nerd Font</h3> #
+https://github.com/user-attachments/assets/946b6d52-f0c1-457c-9061-4d23f5a133b9
+
+<hr>
+  <h3>Font Used - JetBrainsMono Nerd Font</h3> 
 <hr>
 
 ### Packages necesessary for this configuration - ###
