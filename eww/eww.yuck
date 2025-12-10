@@ -1,0 +1,202 @@
+
+;; --- VARIABLES ---
+(defpoll time :interval "1s" "date '+%H:%M:%S'")
+(defpoll date :interval "1m" "date '+%A, %d %B'")
+(defpoll uptime :interval "1m" "~/.config/eww/scripts/get_uptime.sh")
+
+;; --- NEW: TRAY VARIABLE ---
+(defvar tray_open false)
+
+;; DASHBOARD VARIABLES
+(defvar dashboard_open false)
+(defpoll username :interval "24h" "whoami | tr '[:lower:]' '[:upper:]'")
+(defpoll net_status :interval "5s" "~/.config/eww/scripts/get_net_status.sh")
+(defpoll net_speed :interval "1s" "~/.config/eww/scripts/get_net_speed.sh")
+(defpoll bt_status :interval "5s" "~/.config/eww/scripts/get_bt_status.sh")
+(defpoll notif_count :interval "2s" "~/.config/eww/scripts/get_notif_count.sh")
+
+;; BAR VARIABLES
+(defpoll workspace_layout :interval "200ms" "~/.config/eww/scripts/get_workspaces.sh")
+(defpoll window_title :interval "0.5s" "~/.config/eww/scripts/get_window_title.sh")
+(defpoll volume :interval "1s" "~/.config/eww/scripts/get_volume.sh")
+
+;; MEDIA VARIABLES
+(defpoll media_title :interval "1s" "~/.config/eww/scripts/get_media_title.sh")
+(defpoll media_status :interval "1s" "~/.config/eww/scripts/get_media_status.sh")
+(defpoll visualizer :interval "80ms" "~/.config/eww/scripts/get_media_visualizer.sh")
+
+;; --- WINDOWS ---
+
+(defwindow bar
+  :monitor 0
+  :windowtype "dock"
+  :geometry (geometry :x "0%" :y "0%" :width "100%" :height "35px" :anchor "top center")
+  :stacking "fg"
+  :exclusive true
+  (bar_layout))
+
+(defwindow dashboard
+  :monitor 0
+  :geometry (geometry :x "10px" 
+                      :y "45px" 
+                      :width "300px" 
+                      :height "600px" 
+                      :anchor "top left")
+  :stacking "fg"
+  (dashboard_layout))
+
+;; --- LAYOUTS ---
+
+(defwidget bar_layout []
+  (centerbox :orientation "h" :class "bar-container"
+    (left_modules)
+    (center_modules)
+    (right_modules)))
+
+(defwidget dashboard_layout []
+  (box :class "dash-window" :orientation "v" :space-evenly false
+    (user_widget)
+    (separator)
+    (system_widget)
+    (separator)
+    (connectivity_widget)
+    (separator)
+    (notification_widget)
+    (separator)
+    (power_widget)))
+
+;; --- BAR SECTIONS ---
+
+(defwidget left_modules []
+  (box :orientation "h" :space-evenly false :halign "start" :class "left-area" :spacing 10
+    (utility_button)
+    (literal :content workspace_layout)))
+
+(defwidget center_modules []
+  (box :orientation "h" :space-evenly false :halign "center" :class "center-area"
+    (window_title_module)))
+
+(defwidget right_modules []
+  (box :orientation "h" :space-evenly false :halign "end" :spacing 15 :class "right-area"
+    (system_tray) 
+    (media_module)
+    (volume_module)
+    (battery_module)
+    (time_module)))
+
+;; --- NEW: TRAY WIDGET ---
+(defwidget system_tray []
+  (box :class "tray-container" :orientation "h" :space-evenly false :valign "center"
+    (revealer :transition "slideleft"
+              :reveal tray_open
+              :duration "350ms"
+      (box :class "tray-items"
+           (systray :pack-direction "ltr" :icon-size 18 :spacing 5)))
+    (button :class "tray-btn" 
+            :onclick "eww update tray_open=${!tray_open}" 
+            :tooltip "Toggle Tray"
+            {tray_open ? "" : ""})))
+
+;; --- DASHBOARD WIDGETS ---
+
+(defwidget user_widget []
+  (box :class "dash-user" :orientation "h" :space-evenly false :spacing 15
+    (label :class "user-icon" :text "")
+    (box :orientation "v" :space-evenly false
+      (label :class "user-name" :halign "start" :text username)
+      (label :class "user-uptime" :halign "start" :text "UP: ${uptime}"))))
+
+(defwidget system_widget []
+  (box :class "dash-system" :orientation "v" :spacing 12
+    (box :orientation "v" :space-evenly false
+      (box :orientation "h" :space-evenly true
+        (label :class "sys-text" :halign "start" :text "CPU CORE")
+        (label :class "sys-val" :halign "end" :text "${round(EWW_CPU.avg, 0)}%"))
+      (progress :value {EWW_CPU.avg} :class "sys-prog cpu-prog"))
+    
+    (box :orientation "v" :space-evenly false
+      (box :orientation "h" :space-evenly true
+        (label :class "sys-text" :halign "start" :text "RAM MEMORY")
+        (label :class "sys-val" :halign "end" 
+               :text "${round(EWW_RAM.used_mem / 1073741824, 1)} / ${round(EWW_RAM.total_mem / 1073741824, 0)} GB"))
+      (progress :value {EWW_RAM.used_mem_perc} :class "sys-prog ram-prog"))
+    
+    (box :orientation "v" :space-evenly false
+      (box :orientation "h" :space-evenly true
+        (label :class "sys-text" :halign "start" :text "SSD STORAGE")
+        (label :class "sys-val" :halign "end" 
+               :text "${round(EWW_DISK["/"].used / 1073741824, 0)} / ${round(EWW_DISK["/"].total / 1073741824, 0)} GB"))
+      (progress :value {EWW_DISK["/"].used_perc} :class "sys-prog disk-prog"))))
+
+(defwidget connectivity_widget []
+  (box :class "dash-conn" :orientation "v" :spacing 10
+    (revealer :transition "slidedown" :reveal {net_status != "Disconnected"}
+      (box :class "net-speed-box" :space-evenly true
+        (label :class "net-speed-text" :text net_speed)))
+    (button :onclick "kitty -e nmtui &" :class "conn-btn"
+      (box :orientation "h" :space-evenly true
+        (label :class "conn-icon" :halign "start" :text "")
+        (label :class "conn-text" :halign "end" :text net_status)))
+    (button :onclick "blueman-manager &" :class "conn-btn"
+      (box :orientation "h" :space-evenly true
+        (label :class "conn-icon" :halign "start" :text "")
+        (label :class "conn-text" :halign "end" :text bt_status)))))
+
+(defwidget notification_widget []
+  (box :class "dash-notif" :orientation "v" :spacing 10
+    (box :orientation "h" :space-evenly true
+      (label :class "sys-text" :halign "start" :text "COMMUNICATIONS")
+      (label :class "sys-val" :halign "end" :text "INBOX: ${notif_count}"))
+    (box :orientation "h" :spacing 10
+      (button :class "notif-btn open" :onclick "swaync-client -t -sw &" "OPEN HUD")
+      (button :class "notif-btn clear" :onclick "swaync-client -cp &" "PURGE"))))
+
+(defwidget power_widget []
+  (box :class "dash-power" :orientation "v" :spacing 15
+    (box :orientation "h" :spacing 15
+      (button :class "pwr-btn shutdown" :onclick "systemctl poweroff" :tooltip "Shutdown" "")
+      (button :class "pwr-btn reboot" :onclick "systemctl reboot" :tooltip "Reboot" ""))
+    (box :orientation "h" :spacing 15
+      (button :class "pwr-btn lock" :onclick "hyprlock &" :tooltip "Lock" "")
+      (button :class "pwr-btn exit" :onclick "hyprctl dispatch exit" :tooltip "Logout" "󰗼"))))
+
+(defwidget separator []
+  (box :class "dash-sep"))
+
+;; --- BAR WIDGETS ---
+
+(defwidget utility_button []
+  ;; ARCH LINUX ICON
+  (button :class "utility-btn" 
+          :onclick "eww open --toggle dashboard" 
+          :tooltip "Dashboard" 
+          ""))
+
+(defwidget media_module []
+  (box :class "media-deck" :space-evenly false :valign "center" :spacing 8
+    (label :class "visualizer" :text visualizer)
+    (label :class "media-title" :text media_title)
+    (revealer :transition "slideleft" :reveal {media_title != "NO MEDIA"}
+      (box :class "media-controls" :spacing 5
+        (button :class "media-btn" :onclick "playerctl previous" :tooltip "Previous" "󰒮")
+        (button :class "media-btn" :onclick "playerctl play-pause" :tooltip "Toggle" {media_status == "Playing" ? "󰏤" : "󰐊"})
+        (button :class "media-btn" :onclick "playerctl next" :tooltip "Next" "󰒭")
+      ))
+  ))
+
+(defwidget window_title_module []
+  (box :class "title-box" (label :text window_title)))
+
+(defwidget volume_module []
+  (box :class "vol-box" :space-evenly false :valign "center"
+    (label :class "vol-icon" :text "")
+    (label :class "vol-text" :text "${volume}%")))
+
+(defwidget battery_module []
+  (box :class "battery-box" :space-evenly false :valign "center"
+    (label :class "bat-icon" :text {EWW_BATTERY.BAT0.status == 'Charging' ? "󰂄" : "󰁹"})
+    (label :class "bat-text" :text "${EWW_BATTERY.BAT0.capacity}%")))
+
+(defwidget time_module []
+  (eventbox :tooltip date
+    (box :class "time-box" :valign "center" (label :text time))))

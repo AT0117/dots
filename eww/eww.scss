@@ -1,0 +1,235 @@
+
+* {
+    all: unset;
+    font-family: "JetBrainsMono Nerd Font", monospace;
+    font-weight: bold;
+}
+
+/* --- MAIN BAR --- */
+.bar-container {
+    background-color: rgba(0, 0, 0, 0.6);
+    color: #E0E0E0;
+    border-bottom: 1px solid #D03E35;
+    padding: 0px 10px;
+}
+
+.left-area, .center-area, .right-area {
+    padding: 2px 0px;
+}
+
+/* --- UTILITY BUTTON (Arch Logo) --- */
+.utility-btn {
+    color: #D03E35;
+    font-size: 22px;   
+    min-width: 40px;   
+    padding: 0px 0px;  
+    border-radius: 0px;
+}
+
+.utility-btn:hover {
+    color: rgba(0, 0, 0, 0.6);
+    background-color: #D03E35; 
+}
+
+/* --- DASHBOARD (HUD) --- */
+.dash-window {
+    background-color: rgba(10, 10, 10, 0.95);
+    border: 1px solid #D03E35;
+    padding: 20px;
+}
+
+.dash-sep {
+    background-color: #444444;
+    min-height: 1px;
+    margin: 15px 0px;
+}
+
+/* User Section */
+.user-icon { font-size: 42px; color: #D03E35; }
+.user-name { color: #E0E0E0; font-size: 16px; font-weight: 900; }
+.user-uptime { color: #444444; font-size: 12px; }
+
+/* System Section */
+.sys-text { color: #E0E0E0; font-size: 12px; margin-bottom: 5px; }
+.sys-val { color: #D03E35; font-size: 12px; }
+
+/* Progress Bars */
+progress {
+    background-color: #222222;
+    min-height: 8px;
+}
+progress trough {
+    min-height: 8px;
+    min-width: 100px;
+}
+progress highlight {
+    border-radius: 0px;
+}
+
+.cpu-prog highlight { background-color: #D03E35; }
+.ram-prog highlight { background-color: #E0E0E0; }
+.disk-prog highlight { background-color: #D03E35; }
+
+/* Connectivity */
+.net-speed-box {
+    background-color: #1a1a1a;
+    border: 1px solid #444444;
+    padding: 5px;
+    margin-bottom: 10px;
+}
+.net-speed-text { color: #E0E0E0; font-size: 11px; }
+
+.conn-btn {
+    background-color: #222222;
+    padding: 8px;
+    border: 1px solid #444444;
+}
+.conn-btn:hover {
+    background-color: #D03E35;
+    color: #000000;
+}
+.conn-icon { font-size: 18px; margin-left: 5px; }
+.conn-text { font-size: 12px; margin-right: 5px; }
+
+/* Notifications */
+.notif-btn {
+    background-color: #222222;
+    color: #E0E0E0;
+    font-size: 12px;
+    padding: 8px;
+    border: 1px solid #444444;
+}
+.notif-btn:hover {
+    background-color: #E0E0E0;
+    color: #000000;
+}
+.clear:hover {
+    background-color: #D03E35;
+    color: #000000;
+}
+
+/* Power Buttons */
+.pwr-btn {
+    background-color: #222222;
+    color: #E0E0E0;
+    font-size: 24px;
+    padding: 15px 0px;
+    border: 2px solid #444444;
+}
+.pwr-btn:hover {
+    background-color: #D03E35;
+    color: #000000;
+    border-color: #D03E35;
+}
+
+/* --- BAR MODULES --- */
+.media-deck {
+    background-color: rgba(26, 26, 26, 0.8);
+    border: 1px solid #444444;
+    padding: 2px 8px;
+    margin-right: 10px;
+}
+.visualizer { 
+    color: #D03E35; 
+    font-family: "JetBrainsMono Nerd Font"; 
+    font-weight: 900; 
+    margin-right: 5px; 
+    letter-spacing: -2px; 
+}
+.media-title { color: #E0E0E0; font-size: 12px; margin-right: 8px; }
+.media-btn { color: #D03E35; font-size: 14px; padding: 0px 4px; }
+.media-btn:hover { color: rgba(0, 0, 0, 0.6); background-color: #D03E35; }
+
+.title-box { color: #E0E0E0; font-size: 13px; }
+
+.workspaces-box { padding-left: 5px; }
+.workspaces-box button { padding: 2px 8px; margin: 3px 2px; font-size: 14px; border-radius: 0px; }
+.ws-inactive { color: #444444; background-color: transparent; }
+.ws-inactive:hover { color: #E0E0E0; }
+.ws-active { color: #000000; background-color: #D03E35; font-weight: 900; }
+
+.vol-box { color: #E0E0E0; font-size: 13px; padding-right: 5px; }
+.vol-icon { color: #D03E35; font-size: 16px; margin-right: 10px; }
+
+.battery-box { color: #E0E0E0; font-size: 13px; padding-right: 5px; }
+.bat-icon { color: #D03E35; font-size: 16px; margin-right: 6px; }
+
+.time-box { color: #D03E35; font-size: 14px; font-weight: 900; padding-right: 5px; }
+tooltip { background-color: #000000; border: 1px solid #D03E35; color: #E0E0E0; padding: 5px; font-family: "JetBrainsMono Nerd Font"; }
+
+/* --- NEW: SYSTEM TRAY --- */
+.tray-container {
+    padding-right: 5px;
+}
+
+.tray-items {
+    margin-right: 5px;
+    padding: 0px;
+    background-color: transparent;
+    border: none;
+}
+
+systray {
+    background-color: rgba(26, 26, 26, 0.8);
+    border: 1px solid #444444;
+    padding: 2px 6px;
+}
+
+.tray-btn {
+    color: #D03E35;
+    font-size: 14px;
+    padding: 2px 6px;
+    min-width: 20px;
+}
+.tray-btn:hover {
+    color: #000000;
+    background-color: #D03E35;
+}
+
+/* =========================================================================
+   GTK CONTEXT MENU STYLING (System Tray Popups)
+   ========================================================================= */
+
+/* The main menu box */
+menu {
+    background-color: rgba(10, 10, 10, 0.98); 
+    border: 1px solid #D03E35;                
+    margin: 0px;
+    font-family: "JetBrainsMono Nerd Font";  
+}
+
+/* Individual options (Quit, Settings, etc.) */
+menuitem {
+    padding: 6px 10px;
+    margin: 2px 5px;
+    color: #E0E0E0;
+    transition: all 0.1s;
+}
+
+/* Hover effect */
+menuitem:hover {
+    background-color: #D03E35;
+    color: #000000;
+}
+
+/* Text labels inside the menu */
+menuitem label {
+    color: inherit;
+    font-weight: bold;
+}
+
+/* Separator lines */
+menu separator {
+    margin: 5px;
+    color: #444444; 
+}
+
+/* Checkboxes/Radio buttons inside the menu */
+menu check, menu radio {
+    color: #D03E35;
+    background-color: transparent;
+}
+
+menu check:checked, menu radio:checked {
+    color: #D03E35;
+}
